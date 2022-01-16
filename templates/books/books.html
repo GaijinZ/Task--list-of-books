@@ -37,17 +37,17 @@
 </form>
 
 <br><br>
-
-   <table style="width:100%">
-        <tr>
-            <th>Title</th>
-            <th>Authors</th>
-            <th>Published Date</th>
-            <th>ISBN Number</th>
-            <th>Page Count</th>
-            <th>Language</th>
-            <th>Cover</th>
-        </tr>
+{% if all_books %}
+<table style="width:100%">
+    <tr>
+        <th>Title</th>
+        <th>Authors</th>
+        <th>Published Date</th>
+        <th>ISBN Number</th>
+        <th>Page Count</th>
+        <th>Language</th>
+        <th>Cover</th>
+    </tr>
 {% for book in all_books %}
        <tr>
             <th>{{ book.title }}</th>
@@ -62,5 +62,6 @@
         </tr>
 {% endfor %}
     </table>
+{% endif %}
 
 {% endblock %}
