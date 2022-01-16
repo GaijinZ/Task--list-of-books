@@ -78,7 +78,6 @@ class SearchBookView(ListView):
 
 
 class RedirectToPreviousMixin:
-
     default_redirect = '/'
 
     def get(self, request, *args, **kwargs):
@@ -126,7 +125,7 @@ class ImportToDBView(TemplateView):
                                           if 'authors' in book['volumeInfo']
                                           else 'Unknown',
                                           published_date=book['volumeInfo']['publishedDate'],
-                                          ISBN_number=check_isbn_type,
+                                          ISBN_number=int(check_isbn_type),
                                           page_count=book['volumeInfo']['pageCount']
                                           if 'pageCount' in book['volumeInfo']
                                           else 0,
