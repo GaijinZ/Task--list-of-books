@@ -133,7 +133,8 @@ class ImportToDBView(TemplateView):
                                           thumbnail=book['volumeInfo']
                                           .get('imageLinks')['thumbnail']
                                           if 'imageLinks' in book['volumeInfo']
-                                          else 'None',
+                                          else 'https://code-artisan.io/wp-content/uploads/2020/12'
+                                               '/default_book_cover_2015.jpg',
                                           language=book['volumeInfo']['language']
                                           )
 
