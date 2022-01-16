@@ -115,13 +115,13 @@ class ImportToDBView(TemplateView):
             check_isbn_type = ''
 
             if book['volumeInfo']['industryIdentifiers'][0]['type'].lower() == 'other':
-                check_isbn_type = book['volumeInfo']['industryIdentifiers'][0]['identifier'].split(':')[1]
+                check_isbn_type += book['volumeInfo']['industryIdentifiers'][0]['identifier'].split(':')[1]
             else:
-                check_isbn_type = book['volumeInfo']['industryIdentifiers'][0]['identifier']
+                check_isbn_type += book['volumeInfo']['industryIdentifiers'][0]['identifier']
 
             Book.objects.update_or_create(title=book['volumeInfo']['title'],
                                           authors=', '.join([i for i in book['volumeInfo']
-                                          ['authors']])
+                                                                            ['authors']])
                                           if 'authors' in book['volumeInfo']
                                           else 'Unknown',
                                           published_date=book['volumeInfo']['publishedDate'],
