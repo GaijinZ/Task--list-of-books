@@ -21,17 +21,17 @@
     <input type="submit" name="submit" value="Search"/>
 </form>
 
-<br><br>
+<br>
 
 <form action="{% url 'books:search-book' %}" method="GET">
-    <h5>Search titles, authors, languages</h5> <input type="text" name="q" placeholder="titles, authors, languages"/>
+    <h5>Search for text in titles, authors, languages</h5> <input type="text" name="q" placeholder="titles, authors, languages"/>
     <input type="submit" name="submit" value="Search"/>
 </form>
 
-<br><br>
+<h5>or</h5>
 
 <form action="{% url 'books:search-book' %}" method="GET">
-    <h5>Search dates</h5> <input type="text"  name="date_from" placeholder="date from">
+    <h5>Search for dates range</h5> <input type="text"  name="date_from" placeholder="date from">
     <input type="text"  name="date_to" placeholder="date to">
     <input type="submit" name="submit" value="Search"/>
 </form>
