@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<p><a href="{% url 'books_api:home-api' %}">Api</a></p>
+<p><a href="{% url 'books:add-book' %}">Add a book</a></p>
+
+<h5>Import Hobbit books from Google API</h5>
+<form action="{% url 'books:import' %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" name="q_search" value="Hobbit"/>
+</form>
+
+<h5>Or search through Google API to import books</h5>
+<form action="{% url 'books:import' %}" method="POST">
+    {% csrf_token %}
+    <p>Book title search <input type="text" name="q_search" placeholder="eg flowers"/></p>
+    <p>Particular fields search (optional) <input type="text" name="terms" placeholder="eg intitle, inauthor"/></p>
+    <p>Keyword search (optional) <input type="text" name="term_search" placeholder="eg book title, author name"/></p>
+    <input type="submit" name="submit" value="Search"/>
+</form>
+
+<br><br>
+
+<form action="{% url 'books:search-book' %}" method="GET">
+    <h5>Search titles, authors, languages</h5> <input type="text" name="q" placeholder="titles, authors, languages"/>
+    <input type="submit" name="submit" value="Search"/>
+</form>
+
+<br><br>
+
+<form action="{% url 'books:search-book' %}" method="GET">
+    <h5>Search dates</h5> <input type="text"  name="date_from" placeholder="date from">
+    <input type="text"  name="date_to" placeholder="date to">
+    <input type="submit" name="submit" value="Search"/>
+</form>
+
+<br><br>
+
+   <table style="width:100%">
+        <tr>
+            <th>Title</th>
+            <th>Authors</th>
+            <th>Published Date</th>
+            <th>ISBN Number</th>
+            <th>Page Count</th>
+            <th>Language</th>
+            <th>Cover</th>
+        </tr>
+{% for book in all_books %}
+       <tr>
+            <th>{{ book.title }}</th>
+            <th>{{ book.authors }}</th>
+            <th>{{ book.published_date }}</th>
+            <th>{{ book.ISBN_number }}</th>
+            <th>{{ book.page_count }}</th>
+            <th>{{ book.language }}</th>
+            <th><img src="{{ book.thumbnail }}" width="100" height="120"/></th>
+            <th><a href="{% url 'books:edit-book' book.pk %}">Edit</a></th>
+            <th><a href="{% url 'books:delete-book' book.id %}">Delete</a></th>
+        </tr>
+{% endfor %}
+    </table>
+
+{% endblock %}
