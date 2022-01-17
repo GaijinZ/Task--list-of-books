@@ -1,7 +1,6 @@
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, TemplateView, DeleteView
 
 from .models import Book
@@ -114,9 +113,11 @@ class ImportToDBView(TemplateView):
             check_isbn_type = ''
 
             if book['volumeInfo']['industryIdentifiers'][0]['type'].lower() == 'other':
-                check_isbn_type += book['volumeInfo']['industryIdentifiers'][0]['identifier'].split(':')[1]
+                check_isbn_type += \
+                    book['volumeInfo']['industryIdentifiers'][0]['identifier'].split(':')[1]
             else:
-                check_isbn_type += book['volumeInfo']['industryIdentifiers'][0]['identifier']
+                check_isbn_type += \
+                    book['volumeInfo']['industryIdentifiers'][0]['identifier']
 
             Book.objects.update_or_create(title=book['volumeInfo']['title'],
                                           authors=', '.join([i for i in book['volumeInfo']

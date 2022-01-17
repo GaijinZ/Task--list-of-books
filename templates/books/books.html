@@ -3,16 +3,18 @@
 
 {% block content %}
 
-<p><a href="{% url 'books_api:home-api' %}">Api</a></p>
-<p><a href="{% url 'books:add-book' %}">Add a book</a></p>
+<a class="btn btn-outline-primary" href="{% url 'books_api:home-api' %}">Api</a>
 
 <div class="container">
   <div class="row">
     <div class="col">
+        <a class="btn btn-outline-dark" href="{% url 'books:add-book' %}">Add a book</a>
+        <br>
+        <br>
         <p>Import Hobbit books from Google API</p>
         <form action="{% url 'books:import' %}" method="POST">
             {% csrf_token %}
-            <input type="submit" name="q_search" value="Hobbit"/>
+            <input type="submit" class="btn btn-outline-secondary" id="button-addon1" name="q_search" value="Hobbit"/>
         </form>
         <br>
         <h5>or</h5>
@@ -27,7 +29,7 @@
                 <input type="text" class="form-control" name="terms" placeholder="eg intitle, inauthor"/>
                 <span class="input-group-text">Keyword search (optional)</span>
                 <input type="text" class="form-control" name="term_search" placeholder="eg book title, author name"/>
-                <input type="submit" name="submit" value="Search"/>
+                <input type="submit" class="form-control" name="submit" value="Search"/>
             </form>
           </div>
         </div>
@@ -37,7 +39,7 @@
             <form action="{% url 'books:search-book' %}" method="GET">
                 <span class="input-group-text" id="basic-addon1">Search for text in titles, authors, languages</span>
                 <input type="text" class="form-control" name="q" placeholder="titles, authors, languages"/>
-                <input type="submit" name="submit" value="Search"/>
+                <input type="submit"  class="form-control" name="submit" value="Search"/>
             </form>
         </div>
 
