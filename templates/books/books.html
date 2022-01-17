@@ -6,59 +6,80 @@
 <p><a href="{% url 'books_api:home-api' %}">Api</a></p>
 <p><a href="{% url 'books:add-book' %}">Add a book</a></p>
 
-<h5>Import Hobbit books from Google API</h5>
-<form action="{% url 'books:import' %}" method="POST">
-    {% csrf_token %}
-    <input type="submit" name="q_search" value="Hobbit"/>
-</form>
+<div class="container">
+  <div class="row">
+    <div class="col">
+        <p>Import Hobbit books from Google API</p>
+        <form action="{% url 'books:import' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" name="q_search" value="Hobbit"/>
+        </form>
+        <br>
+        <h5>or</h5>
+        <p>Search through Google API to import books</p>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <form action="{% url 'books:import' %}" method="POST">
+                {% csrf_token %}
+                <span class="input-group-text">Book title search</span>
+                <input type="text" class="form-control" name="q_search" placeholder="eg flowers"/>
+                <span class="input-group-text">Particular fields search (optional)</span>
+                <input type="text" class="form-control" name="terms" placeholder="eg intitle, inauthor"/>
+                <span class="input-group-text">Keyword search (optional)</span>
+                <input type="text" class="form-control" name="term_search" placeholder="eg book title, author name"/>
+                <input type="submit" name="submit" value="Search"/>
+            </form>
+          </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="input-group mb-3">
+            <form action="{% url 'books:search-book' %}" method="GET">
+                <span class="input-group-text" id="basic-addon1">Search for text in titles, authors, languages</span>
+                <input type="text" class="form-control" name="q" placeholder="titles, authors, languages"/>
+                <input type="submit" name="submit" value="Search"/>
+            </form>
+        </div>
 
-<h5>Or search through Google API to import books</h5>
-<form action="{% url 'books:import' %}" method="POST">
-    {% csrf_token %}
-    <p>Book title search <input type="text" name="q_search" placeholder="eg flowers"/></p>
-    <p>Particular fields search (optional) <input type="text" name="terms" placeholder="eg intitle, inauthor"/></p>
-    <p>Keyword search (optional) <input type="text" name="term_search" placeholder="eg book title, author name"/></p>
-    <input type="submit" name="submit" value="Search"/>
-</form>
-
-<br>
-
-<form action="{% url 'books:search-book' %}" method="GET">
-    <h5>Search for text in titles, authors, languages</h5> <input type="text" name="q" placeholder="titles, authors, languages"/>
-    <input type="submit" name="submit" value="Search"/>
-</form>
-
-<h5>or</h5>
-
-<form action="{% url 'books:search-book' %}" method="GET">
-    <h5>Search for dates range</h5> <input type="text"  name="date_from" placeholder="date from">
-    <input type="text"  name="date_to" placeholder="date to">
-    <input type="submit" name="submit" value="Search"/>
-</form>
-
+        <h5>or</h5>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <form action="{% url 'books:search-book' %}" method="GET">
+                <span class="input-group-text">Search for dates range</span>
+                <input type="text" class="form-control"  name="date_from" placeholder="date from">
+                <input type="text" class="form-control" name="date_to" placeholder="date to">
+                <input type="submit" class="form-control" name="submit" value="Search"/>
+            </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <br><br>
 {% if all_books %}
-<table style="width:100%">
+<table class="table table-striped" style="width:100%">
+    <thead>
     <tr>
-        <th>Title</th>
-        <th>Authors</th>
-        <th>Published Date</th>
-        <th>ISBN Number</th>
-        <th>Page Count</th>
-        <th>Language</th>
-        <th>Cover</th>
+        <th class="text-center" scope="col">Title</th>
+        <th class="text-center" scope="col">Authors</th>
+        <th class="text-center" scope="col">Published Date</th>
+        <th class="text-center" scope="col">ISBN Number</th>
+        <th class="text-center" scope="col">Page Count</th>
+        <th class="text-center" scope="col">Language</th>
+        <th class="text-center" scope="col">Cover</th>
     </tr>
+    </thead>
 {% for book in all_books %}
        <tr>
-            <th>{{ book.title }}</th>
-            <th>{{ book.authors }}</th>
-            <th>{{ book.published_date }}</th>
-            <th>{{ book.ISBN_number }}</th>
-            <th>{{ book.page_count }}</th>
-            <th>{{ book.language }}</th>
-            <th><img src="{{ book.thumbnail }}" width="100" height="120"/></th>
-            <th><a href="{% url 'books:edit-book' book.pk %}">Edit</a></th>
-            <th><a href="{% url 'books:delete-book' book.id %}">Delete</a></th>
+            <td class="text-center">{{ book.title }}</td>
+            <td class="text-center">{{ book.authors }}</td>
+            <td class="text-center">{{ book.published_date }}</td>
+            <td class="text-center">{{ book.ISBN_number }}</td>
+            <td class="text-center">{{ book.page_count }}</td>
+            <td class="text-center">{{ book.language }}</td>
+            <td class="text-center"><img src="{{ book.thumbnail }}" width="100" height="120"/></td>
+            <td class="text-center"><a href="{% url 'books:edit-book' book.pk %}">Edit</a></td>
+            <td class="text-center"><a href="{% url 'books:delete-book' book.id %}">Delete</a></td>
         </tr>
 {% endfor %}
     </table>

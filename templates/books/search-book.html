@@ -4,20 +4,31 @@
 {% block content %}
 
 <p><a href="{% url 'books:home' %}">Home Page</a></p>
-<form method="GET">
-    <h5>Search</h5> <input type="text" name="q" value="{{ request.GET.q }}" placeholder="Search"/>
-    <input type="submit" name="submit" value="Search"/>
-</form>
-<h5>or</h5>
+
+<div class="input-group mb-3">
 <form action="{% url 'books:search-book' %}" method="GET">
-    <h5>Search dates</h5> <input type="text" name="date_from" value="{{ request.GET.date_from }}" placeholder="date from">
-    <input type="text"  name="date_to" value="{{ request.GET.date_to }}" placeholder="date to">
+    <span class="input-group-text" id="basic-addon1">Search for text in titles, authors, languages</span>
+    <input type="text" class="form-control" name="q" value="{{ request.GET.q }}" placeholder="titles, authors, languages"/>
     <input type="submit" name="submit" value="Search"/>
 </form>
+</div>
+<h5>or</h5>
+<br>
+<div class="input-group">
+  <div class="input-group-prepend">
+<form action="{% url 'books:search-book' %}" method="GET">
+    <span class="input-group-text">Search for dates range</span>
+    <input type="text" class="form-control"  name="date_from" value="{{ request.GET.date_from }}" placeholder="date from">
+    <input type="text" class="form-control" name="date_to" value="{{ request.GET.date_to }}" placeholder="date to">
+    <input type="submit" class="form-control" name="submit" value="Search"/>
+</form>
+  </div>
+</div>
 
 {% if results %}
     <br/><br/>
-    <table style="width:100%">
+    <table class="table table-striped" style="width:100%">
+        <thread>
         <tr>
             <th>Title</th>
             <th>Authors</th>
@@ -27,17 +38,18 @@
             <th>Language</th>
             <th>Cover</th>
         </tr>
+        </thread>
     {% for result in results %}
         <tr>
-            <th>{{ result.title }}</th>
-            <th>{{ result.authors }}</th>
-            <th>{{ result.published_date }}</th>
-            <th>{{ result.ISBN_number }}</th>
-            <th>{{ result.page_count }}</th>
-            <th>{{ result.language }}</th>
-            <th><img src="{{ result.thumbnail }}" width="100" height="120"/></th>
-            <th><a href="{% url 'books:edit-book' result.pk %}">Edit</a></th>
-            <th><a href="{% url 'books:delete-book' result.id %}">Delete</a></th>
+            <td class="text-center">{{ result.title }}</td>
+            <td class="text-center">{{ result.authors }}</td>
+            <td class="text-center">{{ result.published_date }}</td>
+            <td class="text-center">{{ result.ISBN_number }}</td>
+            <td class="text-center">{{ result.page_count }}</td>
+            <td class="text-center">{{ result.language }}</td>
+            <td class="text-center"><img src="{{ result.thumbnail }}" width="100" height="120"/></td>
+            <td class="text-center"><a href="{% url 'books:edit-book' result.pk %}">Edit</a></td>
+            <td class="text-center"><a href="{% url 'books:delete-book' result.id %}">Delete</a></td>
         </tr>
     {% endfor %}
 {% else %}
