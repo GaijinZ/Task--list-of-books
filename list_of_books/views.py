@@ -91,7 +91,6 @@ class RedirectToPreviousMixin:
 class DeleteBook(RedirectToPreviousMixin, DeleteView):
     model = Book
     template_name = 'books/delete-book.html'
-    success_url = reverse_lazy('books:home')
 
 
 class ImportToDBView(TemplateView):
@@ -121,7 +120,7 @@ class ImportToDBView(TemplateView):
 
             Book.objects.update_or_create(title=book['volumeInfo']['title'],
                                           authors=', '.join([i for i in book['volumeInfo']
-                                                                            ['authors']])
+                                          ['authors']])
                                           if 'authors' in book['volumeInfo']
                                           else 'Unknown',
                                           published_date=book['volumeInfo']['publishedDate'],
@@ -138,6 +137,8 @@ class ImportToDBView(TemplateView):
                                           )
 
     def post(self, *args, **kwargs):
-        books = self.get_books_from_api()
-        self.save_books_into_model(books)
+        if self.request.POST.get('q_search') != '':
+            books = self.get_books_from_api()
+            self.save_books_into_model(books)
+            return HttpResponseRedirect('/')
         return HttpResponseRedirect('/')
