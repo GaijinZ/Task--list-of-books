@@ -3,6 +3,8 @@
 
 {% block content %}
 
+<p><a href="{% url 'books:home' %}">Home Page</a></p>
+
 <h4>Add a book</h4>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
