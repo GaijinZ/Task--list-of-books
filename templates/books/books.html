@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block content %}
 
@@ -59,12 +59,13 @@
 </div>
 <br><br>
 {% if all_books %}
-<table class="table table-striped" style="width:100%">
+<p>Click on Title/Authors/Published Date to sort tables</p>
+<table id="bookTable" class="table table-striped" style="width:100%">
     <thead>
     <tr>
-        <th class="text-center" scope="col">Title</th>
-        <th class="text-center" scope="col">Authors</th>
-        <th class="text-center" scope="col">Published Date</th>
+        <th onclick="sortTable(0)" class="text-center" scope="col">Title</th>
+        <th onclick="sortTable(1)" class="text-center" scope="col">Authors</th>
+        <th onclick="sortTable(2)" class="text-center" scope="col">Published Date</th>
         <th class="text-center" scope="col">ISBN Number</th>
         <th class="text-center" scope="col">Page Count</th>
         <th class="text-center" scope="col">Language</th>
@@ -86,5 +87,5 @@
 {% endfor %}
     </table>
 {% endif %}
-
+<script src="{% static 'js/home.js' %}"></script>
 {% endblock %}
