@@ -2,13 +2,10 @@
 {% load static %}
 
 {% block content %}
-
+<a class="btn btn-outline-dark" href="{% url 'books:add-book' %}">Add a book</a>
 <div class="container">
   <div class="row">
     <div class="col">
-        <a class="btn btn-outline-dark" href="{% url 'books:add-book' %}">Add a book</a>
-        <br>
-        <br>
         <p>Import Hobbit books from Google API</p>
         <form action="{% url 'books:import' %}" method="POST">
             {% csrf_token %}

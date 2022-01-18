@@ -121,7 +121,7 @@ class ImportToDBView(TemplateView):
 
             Book.objects.update_or_create(title=book['volumeInfo']['title'],
                                           authors=', '.join([i for i in book['volumeInfo']
-                                          ['authors']])
+                                                                            ['authors']])
                                           if 'authors' in book['volumeInfo']
                                           else 'Unknown',
                                           published_date=book['volumeInfo']['publishedDate'],
