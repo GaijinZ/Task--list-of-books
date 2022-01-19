@@ -14,7 +14,8 @@ class BooksApiView(APIView):
 
     @staticmethod
     def get_pub_date_range(published_date):
-        published_date = Book.objects.filter(published_date__range=published_date)
+        published_date = Book.objects.filter(published_date__range=published_date).order_by(
+            'published_date')
         serializer = BookSerializer(published_date, many=True)
         return serializer
 
