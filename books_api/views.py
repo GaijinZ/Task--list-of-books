@@ -21,7 +21,8 @@ class BooksApiView(APIView):
 
     @staticmethod
     def get_authors(author):
-        author = Book.objects.filter(authors__icontains=author)
+        author = Book.objects.filter(authors__icontains=author).order_by(
+            'published_date')
         serializer = BookSerializer(author, many=True)
         return serializer
 

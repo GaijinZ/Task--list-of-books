@@ -110,16 +110,16 @@ class ImportToDBView(TemplateView):
     @staticmethod
     def save_books_into_model(books):
         for book in books:
-            check_isbn_type = ''
+            get_isbn = ''
 
             if book['volumeInfo']['industryIdentifiers'][0]['type'] == 'OTHER':
-                check_isbn_type += \
+                get_isbn += \
                     book['volumeInfo']['industryIdentifiers'][0]['identifier'].split(':')[1]
             else:
                 get_isbn_13 = \
                     [isbn_13 for isbn_13 in
                      book['volumeInfo']['industryIdentifiers'] if isbn_13['type'] == 'ISBN_13']
-                check_isbn_type += get_isbn_13[0]['identifier']
+                get_isbn += get_isbn_13[0]['identifier']
 
             Book.objects.update_or_create(title=book['volumeInfo']['title'],
                                           authors=', '.join([i for i in book['volumeInfo']
@@ -127,7 +127,7 @@ class ImportToDBView(TemplateView):
                                           if 'authors' in book['volumeInfo']
                                           else 'Unknown',
                                           published_date=book['volumeInfo']['publishedDate'],
-                                          ISBN_number=int(check_isbn_type),
+                                          ISBN_number=int(get_isbn),
                                           page_count=book['volumeInfo']['pageCount']
                                           if 'pageCount' in book['volumeInfo']
                                           else 0,
