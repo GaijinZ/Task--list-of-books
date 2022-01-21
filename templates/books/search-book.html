@@ -28,7 +28,7 @@
 {% if results %}
     <br/><br/>
     <table class="table table-striped" style="width:100%">
-        <thread>
+        <thead>
         <tr>
             <th>Title</th>
             <th>Authors</th>
@@ -38,7 +38,7 @@
             <th>Language</th>
             <th>Cover</th>
         </tr>
-        </thread>
+        </thead>
     {% for result in results %}
         <tr>
             <td class="text-center">{{ result.title }}</td>
